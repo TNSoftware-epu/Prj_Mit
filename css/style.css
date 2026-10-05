@@ -1,0 +1,260 @@
+/* ═══════════════════════════════════════════════════════════
+   style.css — Toàn bộ giao diện cho trang "Chúc Ngủ Ngon"
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  overflow: hidden;
+  background: #000;
+  font-family: 'Quicksand', sans-serif;
+  user-select: none;
+  cursor: none; /* Ẩn con trỏ mặc định để dùng con trỏ tùy chỉnh */
+}
+
+/* ─────────────────────────────────────────────
+   CANVAS CHÍNH - Chiếm toàn màn hình
+   ───────────────────────────────────────────── */
+#mainCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   CON TRỎ CHUỘT TÙY CHỈNH - Hình trái tim nhỏ
+   ───────────────────────────────────────────── */
+#customCursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 20px; height: 20px;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  transition: transform 0.1s ease;
+  filter: drop-shadow(0 0 4px #ff6eb4);
+}
+
+/* ─────────────────────────────────────────────
+   THÔNG ĐIỆP TRUNG TÂM
+   ═══════════════════════════════════════════
+   📌 ĐỂ THAY ĐỔI VỊ TRÍ CHỮ:
+      Chỉnh top: 12% để dịch lên/xuống
+      Đổi left: 50% + translateX(-50%) = căn giữa
+   ═══════════════════════════════════════════ */
+#message-container {
+  position: fixed;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 100;
+  pointer-events: none;
+  animation: floatMessage 6s ease-in-out infinite;
+}
+
+/* ═══ THAY ĐỔI FONT DÒNG CHỮ Ở ĐÂY ═══
+   font-family: 'Dancing Script' (thanh lịch) hoặc 'Quicksand' (tròn dễ thương) */
+#message-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.4rem, 3.5vw, 2.6rem); /* Responsive font size */
+  font-weight: 700;
+  /* ═══ THAY ĐỔI MÀU CHỮ Ở ĐÂY ═══ */
+  color: #ffc8e8;
+  /* ═══ THAY ĐỔI HIỆU ỨNG PHÁT SÁNG Ở ĐÂY ═══
+     text-shadow: 0 0 [bán kính nhỏ]px [màu], 0 0 [bán kính lớn]px [màu] */
+  text-shadow:
+    0 0 8px rgba(255, 150, 200, 0.9),
+    0 0 20px rgba(255, 100, 180, 0.7),
+    0 0 40px rgba(255, 50, 150, 0.4),
+    0 0 60px rgba(200, 50, 120, 0.2);
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Dòng chữ phụ nhỏ bên dưới */
+#message-sub {
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 1rem);
+  color: rgba(255, 200, 230, 0.6);
+  margin-top: 6px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Animation lơ lửng nhẹ cho dòng chữ */
+@keyframes floatMessage {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* ─────────────────────────────────────────────
+   YOUTUBE PLAYER - Ẩn hoàn toàn
+   ───────────────────────────────────────────── */
+#youtube-player {
+  position: fixed;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  top: -9999px; left: -9999px;
+}
+
+/* ─────────────────────────────────────────────
+   THANH ÂM LƯỢNG - Góc dưới bên phải
+   ───────────────────────────────────────────── */
+#volume-control {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 100, 180, 0.08);
+  border: 1px solid rgba(255, 150, 200, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 30px;
+  padding: 8px 16px;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  opacity: 0.5;
+}
+#volume-control:hover { opacity: 1; background: rgba(255, 100, 180, 0.15); }
+
+#volume-icon { font-size: 14px; color: rgba(255, 200, 230, 0.8); }
+#volume-label {
+  font-size: 11px;
+  color: rgba(255, 200, 230, 0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Slider styling */
+#volumeSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px; /* === THAY ĐỔI CHIỀU DÀI SLIDER === */
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #ff6eb4 0%, #ff6eb4 70%, rgba(255,255,255,0.2) 70%);
+  outline: none;
+  cursor: pointer;
+}
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #ff6eb4;
+  box-shadow: 0 0 8px rgba(255, 110, 180, 0.8);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+#volumeSlider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+/* ─────────────────────────────────────────────
+   OVERLAY "CLICK DE BAT DAU"
+   Xuat hien khi moi vao trang, click de kich hoat
+   ───────────────────────────────────────────── */
+#start-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center,
+    rgba(10, 5, 20, 0.97) 0%,
+    rgba(0, 0, 0, 0.99) 100%);
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+#start-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+.overlay-flower { font-size: 60px; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,110,180,0.5)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(255,110,180,0.9)); }
+}
+
+.overlay-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: #ffc8e8;
+  text-shadow: 0 0 20px rgba(255,100,180,0.6);
+  margin: 20px 0 10px;
+}
+
+.overlay-hint {
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  color: rgba(255, 200, 230, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Cac cham trang tri tren overlay */
+.overlay-dots {
+  position: absolute;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.overlay-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 150, 200, 0.3);
+  animation: twinkle var(--dur) ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ─────────────────────────────────────────────
+   INDICATOR AM NHAC - Goc duoi ben trai
+   ───────────────────────────────────────────── */
+#music-indicator {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+#music-indicator.visible { opacity: 0.6; }
+
+.music-bar {
+  width: 3px;
+  border-radius: 3px;
+  background: #ff6eb4;
+  animation: musicBounce var(--delay) ease-in-out infinite alternate;
+  box-shadow: 0 0 5px rgba(255,110,180,0.5);
+}
+@keyframes musicBounce {
+  from { height: 4px; }
+  to { height: var(--max-h); }
+}
+
+#music-title {
+  font-size: 11px;
+  color: rgba(255, 200, 230, 0.6);
+  letter-spacing: 1px;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

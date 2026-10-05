@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+  ================================================================
+   TIEU DE TRANG
+   San pham doi ten trang o day
+  ================================================================ -->
+  <title>Chuc Mit Ngu Ngon 🌸</title>
+
+  <!-- Google Fonts: Dancing Script + Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS chinh -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       CANVAS CHINH - Tat ca hieu ung duoc ve o day
+       ============================================================ -->
+  <canvas id="mainCanvas"></canvas>
+
+  <!-- ============================================================
+       CON TRO CHUOT TUY CHINH
+       San pham doi bieu tuong: thay doi emoji trong the div nay
+       ============================================================ -->
+  <div id="customCursor">&#129337;</div>
+
+  <!-- ============================================================
+       THONG DIEP CHINH
+       San pham THAY DOI NOI DUNG CHU TAI DAY:
+         - Dong chinh : the <p id="message-text">
+         - Dong phu   : the <p id="message-sub">  (xoa neu khong dung)
+       ============================================================ -->
+  <div id="message-container">
+    <p id="message-text">Chuc Mit nha minh ngu ngon nhoo 🌙</p>
+    <p id="message-sub">✨ Sweet dreams ✨</p>
+  </div>
+
+  <!-- ============================================================
+       YOUTUBE PLAYER AN
+       San pham THAY DOI NHAC: doi YOUTUBE_VIDEO_ID trong js/config.js
+       ============================================================ -->
+  <div id="youtube-player"></div>
+
+  <!-- ============================================================
+       THANH AM LUONG - Goc duoi ben phai
+       San pham doi gia tri mac dinh: value="70" (0-100)
+       ============================================================ -->
+  <div id="volume-control">
+    <span id="volume-icon">🎵</span>
+    <span id="volume-label">Vol</span>
+    <input type="range" id="volumeSlider" min="0" max="100" value="70" />
+  </div>
+
+  <!-- ============================================================
+       INDICATOR BAI NHAC DANG PHAT - Goc duoi ben trai
+       San pham THAY DOI TEN BAI NHAC: chinh text cua the <span>
+       ============================================================ -->
+  <div id="music-indicator">
+    <div class="music-bar" style="--delay:0.4s; --max-h:12px;"></div>
+    <div class="music-bar" style="--delay:0.6s; --max-h:20px;"></div>
+    <div class="music-bar" style="--delay:0.5s; --max-h:16px;"></div>
+    <div class="music-bar" style="--delay:0.7s; --max-h:10px;"></div>
+    <div class="music-bar" style="--delay:0.45s;--max-h:18px;"></div>
+    <span id="music-title">🎵 Anchor — Novo Amor</span>
+  </div>
+
+  <!-- ============================================================
+       OVERLAY "CHAM DE BAT DAU"
+       San pham THAY DOI TIEU DE OVERLAY: chinh text class overlay-title
+       ============================================================ -->
+  <div id="start-overlay">
+    <div class="overlay-dots" id="overlay-dots"></div>
+    <div class="overlay-flower">🌸</div>
+    <div class="overlay-title">Chuc Mit Ngu Ngon 💕</div>
+    <div class="overlay-hint">Cham de bat dau</div>
+  </div>
+
+  <!-- ============================================================
+       YOUTUBE IFRAME API (tai truoc, khoi tao sau trong audio.js)
+       ============================================================ -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- ============================================================
+       JAVASCRIPT - Thu tu QUAN TRONG, khong duoc doi cho
+       ============================================================
+       1. config.js   : Hang so cau hinh (phai load truoc tien)
+       2. canvas.js   : Khoi tao canvas, ham drawBackground()
+       3. particles.js: Cac class hat (Particle, Trail, v.v.)
+       4. flower.js   : Class FlowerSystem
+       5. audio.js    : YouTube API + volume slider
+       6. main.js     : Game loop chinh + su kien chuot (load cuoi cung)
+       ============================================================ -->
+  <script src="js/config.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/flower.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
